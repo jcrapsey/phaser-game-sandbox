@@ -31,9 +31,11 @@ gulp.task('move:bower', ['clean:dist:bower'], function(){
 });
 
 gulp.task('http:dist', function(){
+  var port = process.env.PORT || 3000;
+  console.log('server on port '+port);
   var app = connect()
   .use(connect.static('dist'));
-  http.createServer(app).listen(process.env.PORT || 3000);
+  http.createServer(app).listen(port);
 });
 
 gulp.task('make:dist', [
