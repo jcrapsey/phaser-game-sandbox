@@ -8,7 +8,7 @@ before_script:
   - gulp make:dist
 deploy:
   provider: heroku
-  buildpack: node
+  buildpack: nodejs
   strategy: git
   api_key:
     secure: I1ZnuZxiF7vrBqQ6beviqAWcguZSC8PQClHjLBsQ10XGU5QlL8n3pxUPMpzt/yIT1LH9RSNXgtEgi9584CD7Y9LbFLurfizllyyqSVV7zsLNo8VvFmk8/99k6rbTK8jeOMXPcK81R0TWkXbTeJc91Olo25ma+oPhkQITiHh0bSI=
