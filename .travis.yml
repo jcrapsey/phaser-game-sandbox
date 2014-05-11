@@ -4,6 +4,7 @@ node_js:
 before_install:
   - npm install -g gulp
 before_script:
+  - rm -rf .gitignore
   - gulp make:dist
 deploy:
   provider: heroku
