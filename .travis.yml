@@ -11,5 +11,5 @@ deploy:
   on:
     repo: jcrapsey/phaser-game-sandbox
   run:
-    - "gulp make:dist"
-    - "gulp http:dist"
+    -"gulp make:dist"
+    -"gulp http:dist"
