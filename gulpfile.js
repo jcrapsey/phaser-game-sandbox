@@ -33,7 +33,7 @@ gulp.task('move:bower', ['clean:dist:bower'], function(){
 gulp.task('http:dist', function(){
   var app = connect()
   .use(connect.static('dist'));
-  http.createServer(app).listen(3000);
+  http.createServer(app).listen(process.env.PORT || 3000);
 });
 
 gulp.task('make:dist', [
