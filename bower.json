@@ -1,0 +1,6 @@
+{
+  "name": "phaser-game-sandbox",
+  "dependencies": {
+    "phaser": "~2.0.4"
+  }
+}
