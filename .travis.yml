@@ -1,8 +1,12 @@
 language: node_js
 node_js:
   - "0.10"
-before_deploy:
-  -"node_modules/.bin/gulp make:dist"
+before_install:
+  -"npm install -g gulp"
+install:
+  -"npm install"
+before_script:
+  -"gulp make:dist"
 deploy:
   provider: heroku
   buildpack: node
@@ -12,6 +16,4 @@ deploy:
   app: phaser-game-sandbox
   on:
     repo: jcrapsey/phaser-game-sandbox
-  run:
-    -"gulp make:dist"
-    -"rm -rf .gitignore"
+  run: ""
