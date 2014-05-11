@@ -3,6 +3,9 @@
   "version": "0.0.0",
   "description": "A place for my Phaser games\"",
   "main": "index.js",
+  "scripts": {
+    "postinstall": "bower install"
+  },
   "author": "",
   "license": "BSD-2-Clause",
   "devDependencies": {
