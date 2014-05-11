@@ -14,4 +14,4 @@ deploy:
   app: phaser-game-sandbox
   on:
     repo: jcrapsey/phaser-game-sandbox
-  run: ""
+  skip_cleanup: true
