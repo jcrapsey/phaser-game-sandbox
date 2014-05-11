@@ -1,0 +1,10 @@
+deploy:
+  provider: heroku
+  api_key:
+    secure: I1ZnuZxiF7vrBqQ6beviqAWcguZSC8PQClHjLBsQ10XGU5QlL8n3pxUPMpzt/yIT1LH9RSNXgtEgi9584CD7Y9LbFLurfizllyyqSVV7zsLNo8VvFmk8/99k6rbTK8jeOMXPcK81R0TWkXbTeJc91Olo25ma+oPhkQITiHh0bSI=
+  app: phaser-game-sandbox
+  on:
+    repo: jcrapsey/phaser-game-sandbox
+  run:
+    - "gulp make:dist"
+    - "gulp http:dist"
