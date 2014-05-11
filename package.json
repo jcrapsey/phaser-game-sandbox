@@ -1,8 +1,10 @@
 {
   "name": "phaser-sandbox",
   "version": "0.0.0",
-  "description": "A place for my Phaser games\"",
-  "main": "index.js",
+  "description": "A place for my Phaser games",
+  "engines": {
+    "node": "0.10.x"
+  },
   "scripts": {
     "postinstall": "bower install"
   },
