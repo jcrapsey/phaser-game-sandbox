@@ -13,5 +13,3 @@ deploy:
   on:
     repo: jcrapsey/phaser-game-sandbox
   skip_cleanup: true
-  run:
-    - gulp http:server
