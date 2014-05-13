@@ -17,7 +17,7 @@ gulp.task('clean:dist:project', function(){
 });
 
 gulp.task('clean:dist:bower', function(){
-  return gulp.src('dist/thrid_party').pipe(clean());
+  return gulp.src('dist/third_party').pipe(clean());
 });
 
 gulp.task('move:src', ['clean:dist:project'], function(cb){
