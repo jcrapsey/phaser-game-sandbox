@@ -1,28 +1,29 @@
-(function(){
-  var blackCat;
+var BlackCat = require('./BlackCat');
 
-  var preload = function preload(){
-    GAME.game.load.spritesheet("black_cat", "assets/black_cat.png", 128, 128, 6);
-  };
+var blackCat;
+var game;
+var cursors;
 
-  var create = function create(){
-    var game = GAME.game;
+var preload = function preload(){
+  game.load.spritesheet("black_cat", "assets/black_cat.png", 128, 128, 6);
+};
 
-    GAME.cursors = game.input.keyboard.createCursorKeys();
+var create = function create(){
 
-    game.physics.startSystem(Phaser.Physics.ARCADE);
-    game.physics.arcade.gravity.y = 250;
+  cursors = game.input.keyboard.createCursorKeys();
 
-    blackCat = new BlackCat();
-  };
+  game.physics.startSystem(Phaser.Physics.ARCADE);
+  game.physics.arcade.gravity.y = 250;
 
-  var update = function update(){
-    blackCat.update();
-  };
+  blackCat = new BlackCat(game);
+};
 
-  GAME.game = new Phaser.Game(480, 230, Phaser.AUTO, "game-container", {
-    preload: preload,
-    create:  create,
-    update: update
-  });
-}());
+var update = function update(){
+  blackCat.update({cursors: cursors});
+};
+
+game = new Phaser.Game(480, 230, Phaser.AUTO, "game-container", {
+  preload: preload,
+  create:  create,
+  update: update
+});
