@@ -20,8 +20,11 @@ gulp.task('clean:dist:bower', function(){
   return gulp.src('dist/third_party').pipe(clean());
 });
 
-gulp.task('move:src', ['clean:dist:project'], function(cb){
-  return gulp.src('src/**/*', {base: 'src'})
+gulp.task('copy:dist:project', ['clean:dist:project'], function(){
+  return gulp.src([
+    'src/**/*',
+    '!src/**/*.js'
+  ], {base: 'src'})
   .pipe(gulp.dest('dist'));
 });
 
@@ -46,6 +49,6 @@ gulp.task('http:dist', function(){
 gulp.task('make:dist', [
   'clean:dist:project',
   'clean:dist:bower',
-  'move:src',
+  'copy:dist:project',
   'move:bower'
 ]);
