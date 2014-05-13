@@ -28,7 +28,7 @@ gulp.task('copy:dist:project', ['clean:dist:project'], function(){
   .pipe(gulp.dest('dist'));
 });
 
-gulp.task('move:bower', ['clean:dist:bower'], function(){
+gulp.task('copy:dist:bower', ['clean:dist:bower'], function(){
   [
     {files: 'phaser/phaser.js', dest: 'phaser'},
     {files: 'phaser/phaser.map', dest: 'phaser'}
@@ -50,5 +50,5 @@ gulp.task('make:dist', [
   'clean:dist:project',
   'clean:dist:bower',
   'copy:dist:project',
-  'move:bower'
+  'copy:dist:bower'
 ]);
