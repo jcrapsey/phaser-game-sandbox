@@ -1,7 +1,12 @@
-var gulp    = require('gulp');
-var clean   = require('gulp-clean');
-var connect = require('connect');
-var http    = require('http');
+var gulp       = require('gulp');
+var clean      = require('gulp-clean');
+var connect    = require('connect');
+var http       = require('http');
+var source     = require('vinyl-source-stream');
+var browserify = require('browserify');
+var glob       = require('glob');
+var path       = require('path');
+var Q          = require('q');
 
 gulp.task('clean:dist:project', function(){
   return gulp.src([
