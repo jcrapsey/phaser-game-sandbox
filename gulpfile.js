@@ -28,6 +28,32 @@ gulp.task('copy:dist:project', ['clean:dist:project'], function(){
   .pipe(gulp.dest('dist'));
 });
 
+gulp.task('browserify:dist', ['copy:dist:project'], function(){
+  var bStreams = [];
+  glob("src/*/index.js", function (err, files){
+    files.forEach(function(file_path){
+      var bStream, src_path, dst_path;
+      // remove root directory and file from path
+      file_path = file_path
+        .split(path.sep)
+        .splice(1)
+        .slice(0, -1)
+        .join(path.sep);
+
+      src_path = path.join(__dirname, 'src', file_path);
+      dst_path = path.join(__dirname, 'dist', file_path);
+
+      bStream = browserify(src_path)
+        .bundle({debug: true})
+        .pipe(source('index.js'))
+        .pipe(gulp.dest(dst_path));
+
+      bStreams.push(bStream);
+    });
+  });
+  return Q.when(bStreams);
+});
+
 gulp.task('copy:dist:bower', ['clean:dist:bower'], function(){
   [
     {files: 'phaser/phaser.js', dest: 'phaser'},
@@ -50,5 +76,6 @@ gulp.task('make:dist', [
   'clean:dist:project',
   'clean:dist:bower',
   'copy:dist:project',
-  'copy:dist:bower'
+  'copy:dist:bower',
+  'browserify:dist'
 ]);
