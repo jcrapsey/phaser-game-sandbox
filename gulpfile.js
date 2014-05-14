@@ -34,6 +34,16 @@ var browserifyProjects = function(dest){
   return Q.when(bStreams);
 };
 
+var copyBowerAssets = function(dest){
+  [
+    {files: 'phaser/phaser.js', dest: 'phaser'},
+    {files: 'phaser/phaser.map', dest: 'phaser'}
+  ].forEach(function(bower_path){
+    gulp.src(path.join('bower_components', bower_path.files))
+    .pipe(gulp.dest(path.join(dest,'third_party', bower_path.dest)))
+  });
+};
+
 gulp.task('clean:dist:project', function(){
   return gulp.src([
     'dist/**/*',
@@ -59,13 +69,7 @@ gulp.task('browserify:dist', ['copy:dist:project'], function(){
 });
 
 gulp.task('copy:dist:bower', ['clean:dist:bower'], function(){
-  [
-    {files: 'phaser/phaser.js', dest: 'phaser'},
-    {files: 'phaser/phaser.map', dest: 'phaser'}
-  ].forEach(function(path){
-    gulp.src('bower_components/'+path.files)
-    .pipe(gulp.dest('dist/third_party/'+path.dest))
-  });
+  return copyBowerAssets('dist');
 });
 
 gulp.task('http:dist', function(){
