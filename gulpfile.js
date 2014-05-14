@@ -8,6 +8,32 @@ var glob       = require('glob');
 var path       = require('path');
 var Q          = require('q');
 
+var browserifyProjects = function(dest){
+  var bStreams = [];
+  glob("src/*/index.js", function (err, files){
+    files.forEach(function(file_path){
+      var bStream, src_path, dst_path;
+      // remove root directory and file from path
+      file_path = file_path
+        .split(path.sep)
+        .splice(1)
+        .slice(0, -1)
+        .join(path.sep);
+
+      src_path = path.join(__dirname, 'src', file_path);
+      dst_path = path.join(__dirname, dest, file_path);
+
+      bStream = browserify(src_path)
+        .bundle({debug: true})
+        .pipe(source('index.js'))
+        .pipe(gulp.dest(dst_path));
+
+      bStreams.push(bStream);
+    });
+  });
+  return Q.when(bStreams);
+};
+
 gulp.task('clean:dist:project', function(){
   return gulp.src([
     'dist/**/*',
@@ -29,29 +55,7 @@ gulp.task('copy:dist:project', ['clean:dist:project'], function(){
 });
 
 gulp.task('browserify:dist', ['copy:dist:project'], function(){
-  var bStreams = [];
-  glob("src/*/index.js", function (err, files){
-    files.forEach(function(file_path){
-      var bStream, src_path, dst_path;
-      // remove root directory and file from path
-      file_path = file_path
-        .split(path.sep)
-        .splice(1)
-        .slice(0, -1)
-        .join(path.sep);
-
-      src_path = path.join(__dirname, 'src', file_path);
-      dst_path = path.join(__dirname, 'dist', file_path);
-
-      bStream = browserify(src_path)
-        .bundle({debug: true})
-        .pipe(source('index.js'))
-        .pipe(gulp.dest(dst_path));
-
-      bStreams.push(bStream);
-    });
-  });
-  return Q.when(bStreams);
+  return browserifyProjects('dist');
 });
 
 gulp.task('copy:dist:bower', ['clean:dist:bower'], function(){
