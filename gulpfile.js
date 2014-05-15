@@ -9,3 +9,7 @@ var path       = require('path');
 var uglify     = require('gulp-uglify');
 var streamify  = require('gulp-streamify');
 var concat     = require('gulp-concat');
+
+var bower_includes = [
+  'phaser/phaser.js'
+];
