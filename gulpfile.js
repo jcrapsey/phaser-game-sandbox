@@ -6,4 +6,6 @@ var source     = require('vinyl-source-stream');
 var browserify = require('browserify');
 var glob       = require('glob');
 var path       = require('path');
-var Q          = require('q');
+var uglify     = require('gulp-uglify');
+var streamify  = require('gulp-streamify');
+var concat     = require('gulp-concat');
