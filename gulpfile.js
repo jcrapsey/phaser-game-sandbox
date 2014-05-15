@@ -74,3 +74,40 @@ gulp.task('develop', ['make:lib'], function(){
   app.use(connect.static('lib'));
   http.createServer(app).listen(port);
 });
+
+// Tasks for distribute directory "dist"
+gulp.task('clean:dist', function(){
+  return gulp.src([
+    'dist/**/*'
+  ]).pipe(clean());
+});
+
+gulp.task('make:dist', ['clean:dist'], function(){
+  gulp.src(bower_includes, {cwd: 'bower_components'})
+    .pipe(concat('third_party.js'))
+    .pipe(streamify(uglify()))
+    .pipe(gulp.dest('dist'));
+
+  gulp.src(['src/**/*.*', '!src/**/*.js'], {base: 'src'})
+    .pipe(gulp.dest('dist'));
+
+  glob("*/index.js", {
+    cwd: "src/"
+  }, function (err, files){
+    files.forEach(function(file){
+      return browserify(path.join(__dirname, "src", file))
+        .bundle()
+        .pipe(source(file))
+        .pipe(streamify(uglify()))
+        .pipe(gulp.dest('dist'));
+    });
+  });
+});
+
+gulp.task('http:dist', function(){
+  var port = process.env.PORT || 3000;
+  console.log('server on port '+port);
+  var app = connect()
+  .use(connect.static('dist'));
+  http.createServer(app).listen(port);
+});
