@@ -9,6 +9,7 @@ var path       = require('path');
 var uglify     = require('gulp-uglify');
 var streamify  = require('gulp-streamify');
 var concat     = require('gulp-concat');
+var gutil      = require('gulp-util');
 
 var bower_includes = [
   'phaser/phaser.js'
@@ -33,6 +34,10 @@ gulp.task('make:lib', ['clean:lib'], function(){
     files.forEach(function(file){
       return browserify(path.join(__dirname, "src", file))
         .bundle({debug: true})
+        .on('error', function(e){
+          gutil.log(e.toString());
+          gutil.beep();
+        })
         .pipe(source(file))
         .pipe(gulp.dest('lib'));
     });
@@ -56,6 +61,10 @@ gulp.task('develop', ['make:lib'], function(){
     if(ext === ".js"){
       browserify(path.join(__dirname, 'src', proj))
         .bundle({debug: true})
+        .on('error', function(e){
+          gutil.log(e.toString());
+          gutil.beep();
+        })
         .pipe(source(path.join(proj, 'index.js')))
         .pipe(gulp.dest('lib'));
       return;
@@ -97,6 +106,10 @@ gulp.task('make:dist', ['clean:dist'], function(){
     files.forEach(function(file){
       return browserify(path.join(__dirname, "src", file))
         .bundle()
+        .on('error', function(e){
+          gutil.log(e.toString());
+          gutil.beep();
+        })
         .pipe(source(file))
         .pipe(streamify(uglify()))
         .pipe(gulp.dest('dist'));

@@ -20,6 +20,7 @@
     "glob": "~3.2.9",
     "gulp-uglify": "~0.3.0",
     "gulp-streamify": "0.0.5",
-    "gulp-concat": "~2.2.0"
+    "gulp-concat": "~2.2.0",
+    "gulp-util": "~2.2.14"
   }
 }
